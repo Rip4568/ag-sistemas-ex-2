@@ -4,6 +4,7 @@ import api from './api/axios'
 import './App.css'
 import { ProductForm } from './components/ProductForm';
 import { ProductList } from './components/ProductList';
+import { ProductListV2 } from './components/ProductListV2';
 
 interface FormData {
   name: string;
@@ -17,6 +18,7 @@ function App() {
       <Routes>
         <Route path="/" element={<ProductForm />} />
         <Route path="/products" element={<ProductList />} />
+        <Route path="/products-use-memo" element={<ProductListV2 />} />
       </Routes>
     </BrowserRouter>
   )

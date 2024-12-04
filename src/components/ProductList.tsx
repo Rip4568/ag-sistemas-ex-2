@@ -39,6 +39,9 @@ export function ProductList() {
         <button className="nav-button" onClick={() => navigate('/')}>
           Create New Product
         </button>
+        <button className="nav-button" onClick={() => navigate('/products-use-memo')}>
+          list products with perfomance
+        </button>
       </div>
 
       {error && <div className="message error">{error}</div>}
