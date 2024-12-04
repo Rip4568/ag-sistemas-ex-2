@@ -36,11 +36,8 @@ ProductRow.displayName = 'ProductRow';
 export function ProductListV2() {
   const [products, setProducts] = useState<Product[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
-  const ITEMS_PER_PAGE = 10;
 
   const loadProducts = useCallback(async () => {
     try {
@@ -59,32 +56,6 @@ export function ProductListV2() {
   useEffect(() => {
     loadProducts();
   }, [loadProducts]);
-
-  const paginatedProducts = useMemo(() => {
-    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-    const endIndex = startIndex + ITEMS_PER_PAGE;
-    return products.slice(startIndex, endIndex);
-  }, [products, currentPage]);
-
-  const totalPages = Math.ceil(products.length / ITEMS_PER_PAGE);
-
-  const PaginationControls = (
-    <div className="pagination">
-      <button
-        onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-        disabled={currentPage === 1}
-      >
-        Previous
-      </button>
-      <span>Page {currentPage} of {totalPages}</span>
-      <button
-        onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-        disabled={currentPage === totalPages}
-      >
-        Next
-      </button>
-    </div>
-  );
 
   return (
     <div className="container">
@@ -114,14 +85,12 @@ export function ProductListV2() {
             </tr>
           </thead>
           <tbody>
-            {paginatedProducts.map((product) => (
+            {products.map((product) => (
               <ProductRow key={product.id} product={product} />
             ))}
           </tbody>
         </table>
       </div>
-
-      {PaginationControls}
     </div>
   );
 }
